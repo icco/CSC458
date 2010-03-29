@@ -1,10 +1,10 @@
-all: growth
+all: lab1
 
-growth:
+lab1:
 	~jcswenso/fsc $@.fs
 	mono $@.exe
 
-random:
+abc: 
 	~jcswenso/fsc $@.fs
 	mono $@.exe
 

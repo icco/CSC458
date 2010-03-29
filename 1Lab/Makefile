@@ -1,6 +1,10 @@
 all: growth
 
-growth: growth.fs
+growth:
+	~jcswenso/fsc $@.fs
+	mono $@.exe
+
+random:
 	~jcswenso/fsc $@.fs
 	mono $@.exe
 

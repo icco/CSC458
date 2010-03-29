@@ -9,12 +9,16 @@ let rand _ =
       elif (x <= 0.35 && x > 0.1) then 3
       else 1
 
-let rec sumrand x = 
+let rec manysamples x = 
    if x = 0 then
       0
    else
-      (rand ()) + (sumrand (x - 1))
+      (rand ()) + (manysamples (x - 1))
+
+let rec manysamples2 f x = if x = 0 then 0 else (rand ()) + (f (x - 1))
 
 printf "Compund: %f\n" (compound 2.0);;
 printf "Random: %d\n" (rand ());;
-printf "Sum of Randoms: %d\n" (sumrand 5);;
+printf "Many Samples: %d\n" (manysamples 5);;
+printf "Many Samples Generalized: %d\n" (manysamples2 (rand) 5);;
+

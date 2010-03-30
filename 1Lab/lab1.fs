@@ -17,6 +17,8 @@ let rec manysamples x =
 
 let rec manysamples2 f x = if x = 0 then 0 else (rand ()) + (f (x - 1))
 
+let rec manysamplesarray f x = 0
+
 printf "Compund: %f\n" (compound 2.0);;
 printf "Random: %d\n" (rand ());;
 printf "Many Samples: %d\n" (manysamples 5);;

@@ -29,7 +29,6 @@ Assignment:
   choices from this distribution. Sketch the curve.  What shape does the curve
   have?
 
-
 How to run and compile:
 
 If you run make, the default will run all of the parts of the assignment

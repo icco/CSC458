@@ -26,12 +26,12 @@ let rec manysamplesarr f a =
   | (x::xs) = (f x) + manysamplesarr f xs
 *)
 
-let newrand a = 
-   for i in a do
-      if r < i then
-         1
-      else
-         2
+let newrand a = newrandr a (r.NextDouble())
+
+let rec newrandr a y = 
+  match a with
+  | [] = 0
+  | (x::xs) = if x < a
 
 
 

@@ -25,11 +25,15 @@ let rec newrandr a y =
    | [] -> 0
    | (x::xs) -> if y < x then 0 else (1 + (newrandr xs y))
 
-let newrand a () = newrandr a (r.NextDouble())
+let newrand a () = newrandr (Array.toList a) (r.NextDouble())
 
-printf "Compund: %f\n" (compound 2.0);;
-printf "Random: %d\n" (rand ());;
-printf "Many Samples: %d\n" (manysamples 5);;
-printf "Many Samples Generalized: %d\n" (manysamples2 (rand) 5);;
-printf "Random Generalized: %d\n" (manysamples2 (newrand [ 0.3; 0.9 ]) 5);;
+printf "Compund: %f\n" (compound 2.0) ;;
+printf "Random: %d\n" (rand ()) ;;
+printf "Many Samples: %d\n" (manysamples 5) ;;
+printf "Many Samples Generalized: %d\n" (manysamples2 (rand) 5) ;;
+printf "Random Generalized: %d\n" (manysamples2 (newrand [| 0.3; 0.9 |]) 5) ;;
 
+printf "\nTest a' mer-bober:\n" ;;
+
+for i in 1..10000 do
+   printf "%d, %d\n" i (manysamples2 (newrand [| 0.3; 0.9 |]) 100)

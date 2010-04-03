@@ -22,13 +22,12 @@ Assignment:
 - generalize the earlier distribution function so that it accepts a (sorted)
   array of numbers in the range (0.0, 1.0) and returns random numbers chosen
   from the distribution represented by that array.  So, for instance, the array
-  [| 0.3, 0.9 |] would represent a 30% chance of getting a 0 and a 60% chance
+  [| 0.3; 0.9 |] would represent a 30% chance of getting a 0 and a 60% chance
   of getting a 1 and a 10% chance of getting a 2.
 
 - Using these functions, tabulate the results of 10,000 trials of summing 100
   choices from this distribution. Sketch the curve.  What shape does the curve
   have?
-
 
 How to run and compile:
 

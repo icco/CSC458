@@ -4,9 +4,11 @@
  * @author Mark Gius
  *)
 
+let r = System.Random() 
+
 // I landed on position pos, where should I be?
-let gameBoard pos = 
-    match pos with
+let pos p = 
+    match p with
         | 1 -> 38
         | 4 -> 14
         | 9 -> 31
@@ -26,6 +28,19 @@ let gameBoard pos =
         | 93 -> 73
         | 96 -> 75
         | 98 -> 78
-        | _ -> pos
+        | _ -> p
 
+let roll_dice _ = r.Next(1, 6)
 
+let rec game p1 p2 = 
+   if p1 >= 100 then
+      printf "Player 1 wins.\n"
+   elif p2 >= 100 then
+      printf "Player 2 wins.\n"
+   else
+      game (pos ((roll_dice ()) + p1)) (pos ((roll_dice ()) + p2))
+
+let play _ = game 0 0
+
+for i in 0..500 do
+   play () 

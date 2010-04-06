@@ -1,7 +1,7 @@
 all: ladders
 
 ladders:
-	~jcswenso/fsc $@.fs
+	fsc $@.fs
 	mono $@.exe
 
 clean:

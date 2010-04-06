@@ -34,12 +34,12 @@ let roll_dice _ = r.Next(1, 6)
 
 let rec game p1 p2 = 
    if p1 >= 100 then
-      printf "Player 1 wins.\n"
+      true
    elif p2 >= 100 then
-      printf "Player 2 wins.\n"
+      false
    else
       game (pos ((roll_dice ()) + p1)) (pos ((roll_dice ()) + p2))
 
-let runBaseGame () = game 0 0 ; true
+let runBaseGame () = printf "%b" (game 0 0 )
 
 runBaseGame () ;;

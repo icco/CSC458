@@ -29,6 +29,16 @@ let pos p =
         | 96 -> 75
         | 98 -> 78
         | _ -> p
+        
+(**
+ * Player Class
+ * 
+ * abstract shouldDouble : int -> int -> bool
+ * abstract shouldTake : int -> int -> bool
+ *)
+type Player () =
+   let shouldDouble x y = false
+   let shouldTake x y = true
 
 let roll_dice _ = r.Next(1, 6)
 

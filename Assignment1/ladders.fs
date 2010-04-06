@@ -40,7 +40,6 @@ let rec game p1 p2 =
    else
       game (pos ((roll_dice ()) + p1)) (pos ((roll_dice ()) + p2))
 
-let play _ = game 0 0
+let runBaseGame () = game 0 0 ; true
 
-for i in 0..500 do
-   play () 
+runBaseGame () ;;

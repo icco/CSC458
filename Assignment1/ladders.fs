@@ -55,13 +55,25 @@ type Player() =
  * regardless of his position
  * @author mgius
  *)
-type RecklessPlayer() =
-    inherit Player()
+type RecklessPlayer () =
+    inherit Player ()
     override this.shouldDouble myPos hisPos =
         myPos > hisPos
 
     override this.shouldTake myPos hisPos =
         true
+
+(**
+ * Like the Reckless player, but only takes when he is ahead.
+ * @author nwelch 
+ *)
+type ThinkingPlayer
+    inherit Player ()
+    override this.shouldDouble myPos hisPos =
+        myPos > hisPos
+
+    override this.shouldTake myPos hisPos =
+        myPos > hisPos
 
 let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
     match gameBoard (playerOne.pos + (roll ())) with
@@ -74,3 +86,4 @@ let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
 let runBaseGame () = printf "%b" (game 0 0 )
 
 runBaseGame () ;;
+

@@ -76,12 +76,15 @@ type ThinkingPlayer
         myPos > hisPos
 
 let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
-    match gameBoard (playerOne.pos + (roll ())) with
+    match gameBoard (player_one.pos + (roll ())) with
         | newPos when newPos > 100 ->
             whoseTurn % 2 + 1 |> printfn "Player %d has won!"
         | newPos ->
-            playerOne.pos <- playerOne.pos + newPos
-            realRunGame playerTwo playerOne (whoseTurn + 1) bet cubeOwner
+            player_one.pos <- player_one.pos + newPos
+            game player_two player_one (whoseTurn + 1) bet cubeOwner
+
+let runGame (player_one:Player ) (player_two:Player ) = 
+   game player_one player_two 1 1
 
 let runBaseGame () = printf "%b" (game 0 0 )
 

@@ -76,12 +76,29 @@ type ThinkingPlayer
         myPos > hisPos
 
 let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
-    match gameBoard (player_one.pos + (roll ())) with
-        | newPos when newPos > 100 ->
-            whoseTurn % 2 + 1 |> printfn "Player %d has won!"
-        | newPos ->
-            player_one.pos <- player_one.pos + newPos
-            game player_two player_one (whoseTurn + 1) bet cubeOwner
+    let newDoubles =
+        match playerOne.shouldDouble playerOne.pos playerTwo.pos with
+            | true ->
+                match playerOne.shouldTake playerOne.pos playerTwo.pos with
+                    | true -> doubles + 1
+                    | false -> doubles - 1
+            | false -> doubles
+
+    let playerMod =
+        match whoseTurn % 2 with
+            | 0 -> 1.0
+            | 1 -> -1.0
+            | _ -> 0.0 // impossible
+        
+    match newDoubles, gameBoard (playerOne.pos + (roll ())) with
+        | newDoubles, _ when newDoubles < doubles ->
+            // This is an indicator that one of the players rejected the bet
+            2.0 ** float doubles * playerMod
+        | _, newPos when newPos > 100 ->
+            2.0 ** float newDoubles * playerMod
+        | _, newPos ->
+            playerOne.pos <- playerOne.pos + newPos
+            realRunGame playerTwo playerOne (whoseTurn + 1) newDoubles cubeOwner
 
 let runGame (player_one:Player ) (player_two:Player ) = 
    game player_one player_two 1 1

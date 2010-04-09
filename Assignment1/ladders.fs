@@ -36,19 +36,40 @@ let pos p =
  * abstract shouldDouble : int -> int -> bool
  * abstract shouldTake : int -> int -> bool
  *)
-type Player () =
-   let shouldDouble x y = false
-   let shouldTake x y = true
+[<AbstractClass>]
+type Player() =
+    let mutable _pos = 0
 
-let roll_dice _ = r.Next(1, 6)
+    member this.pos
+        with get() =
+            _pos
+        and set(newValue) =
+            _pos <- newValue
 
-let rec game p1 p2 = 
-   if p1 >= 100 then
-      true
-   elif p2 >= 100 then
-      false
-   else
-      game (pos ((roll_dice ()) + p1)) (pos ((roll_dice ()) + p2))
+    abstract shouldDouble : int -> int -> bool
+    abstract shouldTake : int -> int -> bool
+
+
+(**
+ * This player always doubles if he is ahead, and always takes a double,
+ * regardless of his position
+ * @author mgius
+ *)
+type RecklessPlayer() =
+    inherit Player()
+    override this.shouldDouble myPos hisPos =
+        myPos > hisPos
+
+    override this.shouldTake myPos hisPos =
+        true
+
+let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
+    match gameBoard (playerOne.pos + (roll ())) with
+        | newPos when newPos > 100 ->
+            whoseTurn % 2 + 1 |> printfn "Player %d has won!"
+        | newPos ->
+            playerOne.pos <- playerOne.pos + newPos
+            realRunGame playerTwo playerOne (whoseTurn + 1) bet cubeOwner
 
 let runBaseGame () = printf "%b" (game 0 0 )
 

@@ -7,7 +7,7 @@
 let r = System.Random() 
 
 // I landed on position pos, where should I be?
-let pos p = 
+let pos p =
     match p with
         | 1 -> 38
         | 4 -> 14
@@ -37,13 +37,13 @@ let pos p =
  * abstract shouldTake : int -> int -> bool
  *)
 [<AbstractClass>]
-type Player() =
+type Player () =
     let mutable _pos = 0
 
     member this.pos
-        with get() =
+        with get () =
             _pos
-        and set(newValue) =
+        and set newValue =
             _pos <- newValue
 
     abstract shouldDouble : int -> int -> bool

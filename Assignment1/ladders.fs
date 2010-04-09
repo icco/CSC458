@@ -75,11 +75,16 @@ type ThinkingPlayer
     override this.shouldTake myPos hisPos =
         myPos > hisPos
 
-let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
+(**
+ * The game function....
+ * 
+ * Replaced most of my code with mgius'.
+ *)
+let rec game ( player_one:Player ) ( player_two:Player ) whoseTurn bet cubeOwner =
     let newDoubles =
-        match playerOne.shouldDouble playerOne.pos playerTwo.pos with
+        match (player_one.shouldDouble player_one.pos player_two.pos) with
             | true ->
-                match playerOne.shouldTake playerOne.pos playerTwo.pos with
+                match player_one.shouldTake player_one.pos player_two.pos with
                     | true -> doubles + 1
                     | false -> doubles - 1
             | false -> doubles
@@ -90,20 +95,22 @@ let rec game (player_one:Player ) (player_two:Player ) whoseTurn bet cubeOwner =
             | 1 -> -1.0
             | _ -> 0.0 // impossible
         
-    match newDoubles, gameBoard (playerOne.pos + (roll ())) with
+    match newDoubles, gameBoard (player_one.pos + (roll ())) with
         | newDoubles, _ when newDoubles < doubles ->
             // This is an indicator that one of the players rejected the bet
             2.0 ** float doubles * playerMod
         | _, newPos when newPos > 100 ->
             2.0 ** float newDoubles * playerMod
         | _, newPos ->
-            playerOne.pos <- playerOne.pos + newPos
-            realRunGame playerTwo playerOne (whoseTurn + 1) newDoubles cubeOwner
+            player_one.pos <- player_one.pos + newPos
+            game player_two player_one (whoseTurn + 1) newDoubles cubeOwner
 
 let runGame (player_one:Player ) (player_two:Player ) = 
-   game player_one player_two 1 1
+   game player_one player_two 0 0 -1
 
-let runBaseGame () = printf "%b" (game 0 0 )
-
-runBaseGame () ;;
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
 

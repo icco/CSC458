@@ -80,33 +80,28 @@ type ThinkingPlayer
  * 
  * Replaced most of my code with mgius'.
  *)
-let rec game ( player_one:Player ) ( player_two:Player ) whoseTurn bet cubeOwner =
-    let newDoubles =
-        match (player_one.shouldDouble player_one.pos player_two.pos) with
-            | true ->
-                match player_one.shouldTake player_one.pos player_two.pos with
-                    | true -> doubles + 1
-                    | false -> doubles - 1
-            | false -> doubles
+let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn bet cubeOwner =
+   let take = p_one.shouldTake p_one.pos p_two.pos ? doubles + 1 : doubles - 1
+   let newDoubles = (p_one.shouldDouble p_one.pos p_two.pos) ? take : doubles
 
-    let playerMod =
-        match whoseTurn % 2 with
-            | 0 -> 1.0
-            | 1 -> -1.0
-            | _ -> 0.0 // impossible
-        
-    match newDoubles, gameBoard (player_one.pos + (roll ())) with
-        | newDoubles, _ when newDoubles < doubles ->
-            // This is an indicator that one of the players rejected the bet
-            2.0 ** float doubles * playerMod
-        | _, newPos when newPos > 100 ->
-            2.0 ** float newDoubles * playerMod
-        | _, newPos ->
-            player_one.pos <- player_one.pos + newPos
-            game player_two player_one (whoseTurn + 1) newDoubles cubeOwner
+   let playerMod =
+      match whoseTurn % 2 with
+         | 0 -> 1.0
+         | 1 -> -1.0
+         | _ -> 0.0 // impossible
+      
+   match newDoubles, gameBoard (p_one.pos + (roll ())) with
+       | newDoubles, _ when newDoubles < doubles ->
+           // This is an indicator that one of the players rejected the bet
+           2.0 ** float doubles * playerMod
+       | _, newPos when newPos > 100 ->
+           2.0 ** float newDoubles * playerMod
+       | _, newPos ->
+           p_one.pos <- p_one.pos + newPos
+           game p_two p_one (whoseTurn + 1) newDoubles cubeOwner
 
-let runGame (player_one:Player ) (player_two:Player ) = 
-   game player_one player_two 0 0 -1
+let runGame (p_one:Player ) (p_two:Player ) = 
+   game p_one p_two 0 0 -1
 
 runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
 runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"

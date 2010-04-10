@@ -31,7 +31,7 @@ let pos p =
         | 98 -> 78
         | _ -> p
 
-let roll _ = r.Next (1,6)
+let roll _ = r.Next (1,7)
         
 (**
  * Player Class

@@ -1,5 +1,6 @@
 (**
  * Chutes and Ladders 
+ *
  * @author Nat Welch
  * @author Mark Gius
  *)
@@ -29,6 +30,8 @@ let pos p =
         | 96 -> 75
         | 98 -> 78
         | _ -> p
+
+let roll _ = r.Next (1,6)
         
 (**
  * Player Class
@@ -67,7 +70,7 @@ type RecklessPlayer () =
  * Like the Reckless player, but only takes when he is ahead.
  * @author nwelch 
  *)
-type ThinkingPlayer
+type ThinkingPlayer () =
     inherit Player ()
     override this.shouldDouble myPos hisPos =
         myPos > hisPos
@@ -80,9 +83,9 @@ type ThinkingPlayer
  * 
  * Replaced most of my code with mgius'.
  *)
-let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn bet cubeOwner =
-   let take = p_one.shouldTake p_one.pos p_two.pos ? doubles + 1 : doubles - 1
-   let newDoubles = (p_one.shouldDouble p_one.pos p_two.pos) ? take : doubles
+let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn doubles cubeOwner =
+   let take = if (p_one.shouldTake p_one.pos p_two.pos) then (doubles + 1) else (doubles - 1)
+   let newDoubles = if (p_one.shouldDouble p_one.pos p_two.pos) then take else doubles
 
    let playerMod =
       match whoseTurn % 2 with
@@ -90,7 +93,7 @@ let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn bet cubeOwner =
          | 1 -> -1.0
          | _ -> 0.0 // impossible
       
-   match newDoubles, gameBoard (p_one.pos + (roll ())) with
+   match newDoubles, (pos (p_one.pos + (roll ()))) with
        | newDoubles, _ when newDoubles < doubles ->
            // This is an indicator that one of the players rejected the bet
            2.0 ** float doubles * playerMod
@@ -103,9 +106,9 @@ let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn bet cubeOwner =
 let runGame (p_one:Player ) (p_two:Player ) = 
    game p_one p_two 0 0 -1
 
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "%f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
+runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
 

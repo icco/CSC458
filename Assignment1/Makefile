@@ -1,8 +1,9 @@
 all: ladders
 
 ladders:
-	fsc $@.fs
+	bash -i -c 'fsc $@.fs'
 	mono $@.exe
 
 clean:
 	rm -f *.dll *.exe
+

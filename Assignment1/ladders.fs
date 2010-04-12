@@ -41,14 +41,6 @@ let roll _ = r.Next (1,7)
  *)
 [<AbstractClass>]
 type Player () =
-    let mutable _pos = 0
-
-    member this.pos
-        with get () =
-            _pos
-        and set newValue =
-            _pos <- newValue
-
     abstract shouldDouble : int -> int -> bool
     abstract shouldTake : int -> int -> bool
 
@@ -83,28 +75,39 @@ type ThinkingPlayer () =
  * 
  * Replaced most of my code with mgius'.
  *)
-let rec game ( p_one:Player ) ( p_two:Player ) whoseTurn doubles cubeOwner =
-   let take = if (p_one.shouldTake p_one.pos p_two.pos) then (doubles + 1) else (doubles - 1)
-   let newDoubles = if (p_one.shouldDouble p_one.pos p_two.pos) then take else doubles
+let rec realRunGame gameState (p_one : Player) (p_two : Player) =
+    let (whoseTurn, doubles, cubeOwner, pos1, pos2) = gameState
 
-   let playerMod =
-      match whoseTurn % 2 with
-         | 0 -> 1.0
-         | 1 -> -1.0
-         | _ -> 0.0 // impossible
-      
-   match newDoubles, (pos (p_one.pos + (roll ()))) with
-       | newDoubles, _ when newDoubles < doubles ->
-           // This is an indicator that one of the players rejected the bet
-           2.0 ** float doubles * playerMod
-       | _, newPos when newPos > 100 ->
-           2.0 ** float newDoubles * playerMod
-       | _, newPos ->
-           p_one.pos <- p_one.pos + newPos
-           game p_two p_one (whoseTurn + 1) newDoubles cubeOwner
+    // Figure out what the new doubling value is
+    let newDoubles, newOwner =
+        match (cubeOwner = -1 || cubeOwner % 2 = whoseTurn % 2, p_one.shouldDouble pos1 pos2) with
+            | (true, true) -> if p_two.shouldTake pos2 pos1 then
+               (doubles + 1, whoseTurn + 1)
+            else
+               (doubles - 1, cubeOwner)
+            // Since we only care about true true, catch-all
+            | (_, _) -> (doubles, cubeOwner)
 
-let runGame (p_one:Player ) (p_two:Player ) = 
-   game p_one p_two 0 0 -1
+    let playerMod =
+        match whoseTurn % 2 with
+            | 0 ->  1.0
+            | 1 -> -1.0
+            | _ ->  0.0 // impossible
+        
+    match newDoubles, gameBoard (pos1 + (roll ())) with
+        | newDoubles, _ when newDoubles < doubles ->
+            // This is an indicator that playertwo rejected the bet
+            (pos1, pos2) ||> printfn "Rejected: %d %d"
+            2.0 ** float doubles * playerMod
+        | _, newPos when newPos >= 100 ->
+            (pos1, pos2) ||> printfn "Victory: %d %d"
+            2.0 ** float newDoubles * playerMod
+        | _, newPos ->
+            (pos1, pos2) ||> printfn "%d %d"
+            realRunGame (whoseTurn + 1, newDoubles, newOwner, pos2, newPos)
+                        p_two p_one
+
+let runGame = realRunGame (0,0,-1,0,0)
 
 runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
 runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"

@@ -66,7 +66,31 @@ type EnergeticPlayer () =
 
 type Welch () =
    inherit Player ()
-   let f pos = if pos > 50 then 5 else 3
+   let f p =
+      let a = p + roll ()
+      in
+         match p with
+            | 1 -> 38
+            | 4 -> 14
+            | 9 -> 31
+            | 16 -> 6
+            | 21 -> 42
+            | 28 -> 84
+            | 36 -> 44
+            | 47 -> 26
+            | 49 -> 11
+            | 51 -> 67
+            | 56 -> 53
+            | 62 -> 19
+            | 64 -> 60
+            | 71 -> 91
+            | 80 -> 100
+            | 87 -> 24
+            | 93 -> 73
+            | 96 -> 75
+            | 98 -> 78
+            | _ -> p
+
    override this.shouldDouble myPos hisPos = (f myPos) > (f hisPos)
    override this.shouldTake myPos hisPos = true
 
@@ -133,12 +157,10 @@ let rec realRunGame gameState ( p_one : Player ) ( p_two : Player ) =
 
 let runGame = realRunGame (0,0,-1,0,0)
 
-(*
 let sequence = seq { for i in 1..1000 -> (runGame (Welch ()) (Gius ())) }
 let resultSeq = Seq.countBy (fun elem -> elem) sequence
 let printSeq seq1 = Seq.iter (printfn "%A ") seq1
 printSeq resultSeq
-*)
 
 runGame (Welch ()) (Gius ()) |> printfn "\t%.0f"
 

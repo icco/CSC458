@@ -31,6 +31,8 @@ let pos p =
       | 98 -> 78
       | _ -> p
 
+let gameBoard x = pos x
+
 let roll _ = r.Next (1,7)
 
 (**
@@ -54,6 +56,36 @@ type RecklessPlayer () =
    inherit Player ()
    override this.shouldDouble myPos hisPos = (myPos > hisPos)
    override this.shouldTake myPos hisPos = true
+
+(**
+ * Tries to prolong the game.
+ *)
+type EnergeticPlayer () =
+   inherit Player ()
+   override this.shouldDouble myPos hisPos = false
+   override this.shouldTake myPos hisPos = true
+
+type Welch () =
+   inherit Player ()
+   override this.shouldDouble myPos hisPos = true
+   override this.shouldTake myPos hisPos = true
+
+type Gius() =
+    inherit Player()
+
+    // Averages the positions that can be achived in the next 2 turns
+    let score1 pos = 
+        float (List.fold (fun acc x -> acc + x) 0
+                   [for j in [for i in 1..6 -> gameBoard (pos + i)]
+                       -> gameBoard j]) / 6.0
+
+    override this.shouldDouble myPos hisPos = 
+//        printfn "DEBUG: I'm at %d, he's at %d, %f vs %f" 
+//            myPos hisPos (score1 myPos) (score1 hisPos)
+        score1 myPos > score1 hisPos 
+    override this.shouldTake myPos hisPos = 
+        true
+
 
 (**
  * Like the Reckless player, but only takes when he is ahead.
@@ -94,21 +126,178 @@ let rec realRunGame gameState ( p_one : Player ) ( p_two : Player ) =
    match newDoubles, pos (pos1 + (roll ())) with
       | newDoubles, _ when newDoubles < doubles ->
          // This is an indicator that playertwo rejected the bet
-         (pos1, pos2) ||> printfn "Rejected: %d %d"
          2.0 ** float doubles * playerMod
       | _, newPos when newPos >= 100 ->
-         (pos1, pos2) ||> printfn "Victory: %d %d"
          2.0 ** float newDoubles * playerMod
       | _, newPos ->
-         (pos1, pos2) ||> printfn "%d %d"
-         realRunGame (whoseTurn + 1, newDoubles, newOwner, pos2, newPos)
-                  p_two p_one
+ //        (pos1, pos2) ||> printfn "%2d %2d"
+         realRunGame (whoseTurn + 1, newDoubles, newOwner, pos2, newPos) p_two p_one
 
 let runGame = realRunGame (0,0,-1,0,0)
 
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
-runGame (ThinkingPlayer ()) (RecklessPlayer ()) |> printfn "\t%.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%3.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
+runGame (Welch ()) (Gius ()) |> printfn "\t%2.0f"
 

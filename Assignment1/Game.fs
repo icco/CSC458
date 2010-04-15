@@ -77,7 +77,8 @@ let rec realRunGame gameState ( p_one : Player ) ( p_two : Player ) =
 
 let runGame = realRunGame (0,0,-1,0,0)
 
-let sequence = seq { for i in 1..1000 -> (runGame (Welch ()) (Gius ())) }
+
+let sequence = seq { for i in 1..10000 -> (runGame (Welch ()) (Gius ())) }
 let resultSeq = Seq.countBy (fun elem -> elem) sequence
 let printSeq seq1 = Seq.iter (printfn "%A ") seq1
 printSeq resultSeq

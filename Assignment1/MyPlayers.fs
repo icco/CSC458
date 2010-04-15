@@ -26,6 +26,11 @@ type EnergeticPlayer () =
    override this.shouldTake myPos hisPos = true
 
 (**
+ * The original plan for this was to do some graph computation
+ * to see who had a better chance of winning, but I couldn't write 
+ * it in a way that wasn't obsurdedly slow, so I went with something
+ * much more random. 
+ *
  * @author nwelch
  *)
 type Welch () =
@@ -52,22 +57,16 @@ type Welch () =
          | 96 -> 75
          | 98 -> 78
          | _ -> p
-   
-   let rec rfunc c x = 
-      if (x >= 100 || c <= 1) then
-         x
+
+   let r = System.Random()
+   let roll _ = r.Next (1,7)
+   let rec rfunc x =
+      if (x >= 100) then
+         0
       else
-         let l = [ (f (x+1)) 
-                   (f (x+2))
-                   (f (x+3))
-                   (f (x+4))
-                   (f (x+5))
-                   (f (x+6)) ]
-         in
-            rfunc (c-1) (List.min l)
+         1 + (rfunc (f x + (roll ())))
 
-
-   override this.shouldDouble myPos hisPos = (rfunc myPos 30) > (rfunc hisPos 30)
+   override this.shouldDouble myPos hisPos = (rfunc myPos) < (rfunc hisPos)
    override this.shouldTake myPos hisPos = true
 
 (**

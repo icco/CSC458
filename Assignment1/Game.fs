@@ -82,5 +82,7 @@ let resultSeq = Seq.countBy (fun elem -> elem) sequence
 let printSeq seq1 = Seq.iter (printfn "%A ") seq1
 printSeq resultSeq
 
-runGame (Welch ()) (Gius ()) |> printfn "\t%.0f"
+(*
+runGame (Welch ()) (Gius ()) |> printfn "%.0f"
+*)
 

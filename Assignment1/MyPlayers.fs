@@ -25,36 +25,54 @@ type EnergeticPlayer () =
    override this.shouldDouble myPos hisPos = false
    override this.shouldTake myPos hisPos = true
 
+(**
+ * @author nwelch
+ *)
 type Welch () =
    inherit Player ()
    let f p =
-      let a = p + 3
-      in
-         match p with
-            | 1 -> 38
-            | 4 -> 14
-            | 9 -> 31
-            | 16 -> 6
-            | 21 -> 42
-            | 28 -> 84
-            | 36 -> 44
-            | 47 -> 26
-            | 49 -> 11
-            | 51 -> 67
-            | 56 -> 53
-            | 62 -> 19
-            | 64 -> 60
-            | 71 -> 91
-            | 80 -> 100
-            | 87 -> 24
-            | 93 -> 73
-            | 96 -> 75
-            | 98 -> 78
-            | _ -> p
+      match p with
+         | 1 -> 38
+         | 4 -> 14
+         | 9 -> 31
+         | 16 -> 6
+         | 21 -> 42
+         | 28 -> 84
+         | 36 -> 44
+         | 47 -> 26
+         | 49 -> 11
+         | 51 -> 67
+         | 56 -> 53
+         | 62 -> 19
+         | 64 -> 60
+         | 71 -> 91
+         | 80 -> 100
+         | 87 -> 24
+         | 93 -> 73
+         | 96 -> 75
+         | 98 -> 78
+         | _ -> p
+   
+   let rec rfunc c x = 
+      if (x >= 100 || c <= 1) then
+         x
+      else
+         let l = [ (f (x+1)) 
+                   (f (x+2))
+                   (f (x+3))
+                   (f (x+4))
+                   (f (x+5))
+                   (f (x+6)) ]
+         in
+            rfunc (c-1) (List.min l)
 
-   override this.shouldDouble myPos hisPos = (f myPos) > (f hisPos)
+
+   override this.shouldDouble myPos hisPos = (rfunc myPos 30) > (rfunc hisPos 30)
    override this.shouldTake myPos hisPos = true
 
+(**
+ * @author mgius
+ *)
 type Gius () =
     inherit Player()
     let giusBoard pos =

@@ -5,6 +5,10 @@
  * @author Mark Gius
  *)
 
+module Game
+open MyPlayers
+open Player
+
 let r = System.Random() 
 
 // I landed on position pos, where should I be?

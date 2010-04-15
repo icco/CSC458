@@ -4,6 +4,7 @@
  * @author Nat Welch
  * @author Mark Gius
  *)
+module Player
 
 (**
  * Player Class

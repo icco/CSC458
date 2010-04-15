@@ -77,13 +77,14 @@ let rec realRunGame gameState ( p_one : Player ) ( p_two : Player ) =
 
 let runGame = realRunGame (0,0,-1,0,0)
 
-
+(* Run 10,000 times
 let sequence = seq { for i in 1..10000 -> (runGame (Welch ()) (Gius ())) }
 let resultSeq = Seq.countBy (fun elem -> elem) sequence
 let printSeq seq1 = Seq.iter (printfn "%A ") seq1
 printSeq resultSeq
+*)
 
-(*
+(* run 1 time
 runGame (Welch ()) (Gius ()) |> printfn "%.0f"
 *)
 

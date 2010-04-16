@@ -2,7 +2,12 @@ Nathaniel Welch
 Jesse Taylor
 Lab 3
 
-1. An event is a sequence of heads and tails
-2. an equity has an initial price. m is global, and a multiplier 1 < m < 2 to use on a head and x by 1/m on a tail.
-3. Develop a makeEquity function: double -> event -> double that excepts the values for p and a and returns a random variable. Random variable equals event -> double.
-4. Develop a function expected : int -> randomVariable -> double that computes 
+1. An event is a sequence of heads and tails.
+2. An equity has an initial price and a multiplier $1 < m < 2$ to use on a head, and $(1 / m)$ on a tail.  (m is a world fixed value)
+3. Develop the function makeEquity : $double \{a\} -> event -> double$ that accepts a value ``a'' and returns a random Variable.  $(random variable = (event -> double)) $
+4. Develop the function Expected : $int -> double -> randomVariable -> double$ that computes the expected value over a given number of time steps of the given random variable by exhaustive search.
+5. Develop the function Variance : $int -> double -> randomVariable -> double$ that computes the variance over the given number of timesteps of the given random Variable
+
+Random variable is a mapping from events to values.
+
+

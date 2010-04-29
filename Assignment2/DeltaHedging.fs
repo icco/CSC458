@@ -5,9 +5,31 @@ type rv = event -> double
 type rvseq = int -> rv
 type option = double -> double
 
+let loopRand r x =
+   if x = 0 then
+      r.Next(1)
+   else
+      r.Next(1)
+      loopRand r ( x - 1 )
+
+
+let makeERandom ( x : int ) () = 
+   let r = System.Random()
+   let mutable a = 0
+   in
+      if (loopRand r x) = 0 then 
+         true 
+      else 
+         false
+;;
+
+module DeltaHedging = 
+   let eRandom1 = makeERandom()
+   let eRandom2 = makeERandom()
 
 
 (* required definitions *)
+(*
 (eAllHeads : event)
 (eAllTails : event)
 (eAlternating : event)
@@ -30,4 +52,4 @@ type option = double -> double
 (sampleHeads : int -> double)
 (sampleHeadsMeanAndVariance : int -> int -> (double * double))
 (experiment1 : (double * double) list)
-
+*)

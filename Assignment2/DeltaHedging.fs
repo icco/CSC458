@@ -27,6 +27,13 @@ module DeltaHedging =
       in
          ((loopRand r x) = 0)
 
+   let makeERandP ( l : double ) =
+      makeERandom ()
+
+   let makeERandT ( l : double ) =
+      makeERandom ()
+
+
 (* required definitions *)
 (*
 (eAllHeads : event)

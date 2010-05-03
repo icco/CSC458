@@ -1,14 +1,14 @@
-all: DeltaHedging.exe
+all: DeltaHedging.dll
 
 FSC = /home/${USER}/lib/fsharp/bin/fsc.exe
 DLLS = -r:xunit.dll -r:fstest.dll
 
-%.exe: DeltaHedging.fs
-	mono ${FSC} --resident ${DLLS} -o $@ $<
+%.dll: DeltaHedging.fs
+	mono ${FSC} --resident ${DLLS} -a $^
 
-test: DeltaHedging.fs test.fs
-	mono ${FSC} --resident ${DLLS} $^
+test: test.fs DeltaHedging.dll
+	mono ${FSC} --resident ${DLLS} -r:DeltaHedging.dll $<
 	mono ./test.exe
 
 clean:
-	rm -f deltahedging.exe test.exe DeltaHedging.exe
+	rm -f deltahedging.exe test.exe DeltaHedging.exe DeltaHedging.dll

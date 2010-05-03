@@ -7,9 +7,8 @@ DLLS = -r:xunit.dll -r:fstest.dll
 	mono ${FSC} --resident ${DLLS} -o $@ $<
 
 test: DeltaHedging.fs test.fs
-	mono ${FSC} --resident ${DLLS} -o test.exe $<
+	mono ${FSC} --resident ${DLLS} $^
 	mono ./test.exe
-#	mono ./xunit.console.exe ./test.exe
 
 clean:
-	rm -f deltahedging.exe test.exe
+	rm -f deltahedging.exe test.exe DeltaHedging.exe

@@ -4,6 +4,8 @@
  * @author Nathaniel "Nat" Welch
  *)
 
+module DeltaHedging
+
 (* required types *)
 type event1 = bool
 type event = int -> event1
@@ -32,7 +34,6 @@ module DeltaHedging =
 
    let makeERandT ( l : double ) =
       makeERandom ()
-
 
 (* required definitions *)
 (*

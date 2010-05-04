@@ -1,10 +1,12 @@
-#light
-
 (**
+ * Assignment 2
  * @author Nathaniel "Nat" Welch
  *)
 
 module DeltaHedging
+
+open System
+open System.Collections.Generic
 
 (* required types *)
 type event1 = bool
@@ -14,26 +16,44 @@ type rvseq = int -> rv
 type option = double -> double
 
 module DeltaHedging =
-   let rec loopRand ( r : System.Random ) x =
-      if x = 0 then
-         r.Next(1)
-      else
-         let k = r.Next(1);
-         in
-            loopRand r ( x - 1 )
+   let s = System.Random()
 
    let makeERandom () ( x : int ) = 
-      let s = System.Random().Next()
-      let r = System.Random(s)
-      let mutable a = 0
+      let r = System.Random()
+      let dict = new Dictionary<int, event1> ()
       in
-         ((loopRand r x) = 0)
+         if (dict.ContainsKey x) then
+            dict.[x]
+         else
+            dict.Add(x, ( if (r.Next(1) = 0) then true else false ));
+            dict.[x]
 
-   let makeERandP ( l : double ) =
-      makeERandom ()
+   let makeERandP ( l : double ) ( x : int ) =
+      let r = System.Random(s.Next())
+      let dict = new Dictionary<int, event1> ()
+      in
+         if (dict.ContainsKey x) then
+            dict.[x]
+         else
+            dict.Add(x, ( if r.NextDouble() > l then true else false ));
+            dict.[x]
 
-   let makeERandT ( l : double ) =
-      makeERandom ()
+
+   let makeERandT () ( x : int ) =
+      let r = System.Random(s.Next())
+      let dict = new Dictionary<int, event1> ()
+      in
+         if (dict.Count > 1) then
+            if (dict.ContainsKey x) then
+               dict.[x]
+            else
+               dict.Add(x, ( if r.NextDouble() < 0.75 then true else false ));
+               dict.[x]
+         else
+            dict.Add(x, ( if r.NextDouble() > 0.5 then true else false ));
+            dict.[x]
+
+
 
    (* required definitions *)
    (*
@@ -53,10 +73,7 @@ module DeltaHedging =
    (binaryLiftRV : (double -> double -> double) -> rv -> rv -> rv)
    (putOptionPayoff : double -> option)
    (callOptionPayoff : double -> option)
-   (tabulateN : (int -> 'a) -> int -> 'a list)
-   (mean : double list -> double)
-   (sampleVar : double list -> double)
-   (sampleHeads : int -> double)
-   (sampleHeadsMeanAndVariance : int -> int -> (double * double))
-   (experiment1 : (double * double) list)
+   (optionValue : stockmodel -> int -> option -> rvseq)
+   (delta : rvseq -> rvseq -> rvseq)
+   (illustration : stockmodel -> int -> option -> event -> ())
    *)

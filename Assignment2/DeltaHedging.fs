@@ -53,27 +53,3 @@ module DeltaHedging =
             dict.Add(x, ( if r.NextDouble() > 0.5 then true else false ));
             dict.[x]
 
-
-
-   (* required definitions *)
-   (*
-   (eAllHeads : event)
-   (eAllTails : event)
-   (eAlternating : event)
-   (makeERandom : unit -> event)
-   (makeERandP : double -> event)
-   (makeERandT : unit -> event)
-   (forceEParts : int -> bool array -> event -> event)
-   (doubleToRV : double -> rv)
-   (rvNCountHeads : int -> rv)
-   (rvNCountTails : int -> rv)
-   (rvNStock : double -> double -> double -> rvseq)
-   (rvPathD : rvseq)
-   (unaryLiftRV : (double -> double) -> rv -> rv)
-   (binaryLiftRV : (double -> double -> double) -> rv -> rv -> rv)
-   (putOptionPayoff : double -> option)
-   (callOptionPayoff : double -> option)
-   (optionValue : stockmodel -> int -> option -> rvseq)
-   (delta : rvseq -> rvseq -> rvseq)
-   (illustration : stockmodel -> int -> option -> event -> ())
-   *)

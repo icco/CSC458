@@ -64,8 +64,8 @@ module DeltaHedging =
       
 
    let rvNCountHeads ( x : int ) =
-      this.rVNCount true
+      rvNCount true
 
    let rvNCountTails ( x : int ) =
-      DeltaHedging.rVNCount false
+      rvNCount false
 

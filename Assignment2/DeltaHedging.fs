@@ -55,17 +55,19 @@ module DeltaHedging =
 
    let rec rvNCount ( w : bool ) ( x : int ) ( f : event ) =
       if x = 0 then
-         0
+         0.0
       else
          if ((f x) = w) then
-            1 + rvNCount w (x-1) (f)
+            1.0 + rvNCount w (x-1) (f)
          else
-            0 + rvNCount w (x-1) (f)
-      
+            0.0 + rvNCount w (x-1) (f)
 
    let rvNCountHeads ( x : int ) =
       rvNCount true
 
    let rvNCountTails ( x : int ) =
       rvNCount false
+
+   let doubleToRV ( l : double ) ( x : int ) ( f : event ) =
+      l
 

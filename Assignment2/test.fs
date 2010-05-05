@@ -14,9 +14,6 @@ ignore (DeltaHedging.eAllHeads : event)
 ignore (DeltaHedging.eAllTails : event)
 ignore (DeltaHedging.eAlternating : event)
 ignore (DeltaHedging.forceEParts : int -> bool array -> event -> event)
-ignore (DeltaHedging.doubleToRV : double -> rv)
-ignore (DeltaHedging.rvNCountHeads : int -> rv)
-ignore (DeltaHedging.rvNCountTails : int -> rv)
 ignore (DeltaHedging.rvNStock : double -> double -> double -> rvseq)
 ignore (DeltaHedging.rvPathD : rvseq)
 ignore (DeltaHedging.unaryLiftRV : (double -> double) -> rv -> rv)
@@ -53,3 +50,6 @@ equal t7 t8
 not_eq t5 t7
 ignore (DeltaHedging.makeERandT : unit -> event)
 
+ignore (DeltaHedging.doubleToRV : double -> rv)
+ignore (DeltaHedging.rvNCountHeads : int -> rv)
+ignore (DeltaHedging.rvNCountTails : int -> rv)

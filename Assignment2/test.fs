@@ -50,6 +50,7 @@ equal t7 t8
 not_eq t5 t7
 ignore (DeltaHedging.makeERandT : unit -> event)
 
-ignore (DeltaHedging.doubleToRV : double -> rv)
 ignore (DeltaHedging.rvNCountHeads : int -> rv)
 ignore (DeltaHedging.rvNCountTails : int -> rv)
+ignore (DeltaHedging.doubleToRV : double -> rv)
+

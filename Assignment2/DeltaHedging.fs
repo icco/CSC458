@@ -38,7 +38,6 @@ module DeltaHedging =
             dict.Add(x, ( if r.NextDouble() > l then true else false ));
             dict.[x]
 
-
    let makeERandT () ( x : int ) =
       let r = System.Random(s.Next())
       let dict = new Dictionary<int, event1> ()
@@ -53,21 +52,21 @@ module DeltaHedging =
             dict.Add(x, ( if r.NextDouble() > 0.5 then true else false ));
             dict.[x]
 
-   let rec rvNCount ( w : bool ) ( x : int ) ( f : event ) =
+   let rec rvNCount ( w : event1 ) ( x : int ) ( f : event ) =
       if x = 0 then
-         0.0
+         double ( 0 )
       else
          if ((f x) = w) then
-            1.0 + rvNCount w (x-1) (f)
+            1.0 + rvNCount w (x-1) f
          else
-            0.0 + rvNCount w (x-1) (f)
+            0.0 + rvNCount w (x-1) f
 
-   let rvNCountHeads ( x : int ) =
-      rvNCount true
+   let rvNCountHeads =
+      ( rvNCount true )
 
-   let rvNCountTails ( x : int ) =
-      rvNCount false
+   let rvNCountTails =
+      ( rvNCount false )
 
-   let doubleToRV ( l : double ) ( x : int ) ( f : event ) =
+   let doubleToRV ( l : double ) x =
       l
 

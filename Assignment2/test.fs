@@ -14,8 +14,6 @@ ignore (DeltaHedging.eAllHeads : event)
 ignore (DeltaHedging.eAllTails : event)
 ignore (DeltaHedging.eAlternating : event)
 ignore (DeltaHedging.forceEParts : int -> bool array -> event -> event)
-ignore (DeltaHedging.putOptionPayoff : double -> option)
-ignore (DeltaHedging.callOptionPayoff : double -> option)
 ignore (DeltaHedging.optionValue : stockmodel -> int -> option -> rvseq)
 ignore (DeltaHedging.delta : rvseq -> rvseq -> rvseq)
 ignore (DeltaHedging.illustration : stockmodel -> int -> option -> event -> ())
@@ -56,3 +54,7 @@ ignore (DeltaHedging.rvPathD : rvseq)
 
 ignore (DeltaHedging.unaryLiftRV : (double -> double) -> rv -> rv)
 ignore (DeltaHedging.binaryLiftRV : (double -> double -> double) -> rv -> rv -> rv)
+
+ignore (DeltaHedging.putOptionPayoff : double -> option)
+ignore (DeltaHedging.callOptionPayoff : double -> option)
+

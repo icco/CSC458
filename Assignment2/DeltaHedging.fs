@@ -83,7 +83,8 @@ module DeltaHedging =
    let rec unaryLiftRV f rf ev = f ( rf ev )
    let rec binaryLiftRV f rf1 rf2 ev = f ( rf1 ev ) ( rf2 ev )
 
-
+   let putOptionPayoff  ( strike : double ) ( stock : double ) = max 0.0 (strike - stock)
+   let callOptionPayoff ( strike : double ) ( stock : double ) = max 0.0 (stock - strike)
 
 
 

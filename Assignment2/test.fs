@@ -8,16 +8,9 @@ open DeltaHedging
 let equal a b = if (a = b) then printf "." else printf "e"
 let not_eq a b = if ( not (a = b)) then printf "." else printf "e"
 
-(* required definitions *)
-(*
 ignore (DeltaHedging.eAllHeads : event)
 ignore (DeltaHedging.eAllTails : event)
 ignore (DeltaHedging.eAlternating : event)
-ignore (DeltaHedging.forceEParts : int -> bool array -> event -> event)
-ignore (DeltaHedging.optionValue : stockmodel -> int -> option -> rvseq)
-ignore (DeltaHedging.delta : rvseq -> rvseq -> rvseq)
-ignore (DeltaHedging.illustration : stockmodel -> int -> option -> event -> ())
-*)
 
 printf "\nmakeERandom\t: "
 ignore (DeltaHedging.makeERandom : unit -> event)
@@ -43,6 +36,7 @@ equal t5 t6
 equal t7 t8
 not_eq t5 t7
 ignore (DeltaHedging.makeERandT : unit -> event)
+ignore (DeltaHedging.forceEParts : int -> bool array -> event -> event)
 
 ignore (DeltaHedging.rvNCountHeads : int -> rv)
 ignore (DeltaHedging.rvNCountTails : int -> rv)
@@ -57,4 +51,9 @@ ignore (DeltaHedging.binaryLiftRV : (double -> double -> double) -> rv -> rv -> 
 
 ignore (DeltaHedging.putOptionPayoff : double -> option)
 ignore (DeltaHedging.callOptionPayoff : double -> option)
+
+ignore (DeltaHedging.optionValue : stockmodel -> int -> option -> rvseq)
+
+ignore (DeltaHedging.delta : rvseq -> rvseq -> rvseq)
+ignore (DeltaHedging.illustration : stockmodel -> int -> option -> event -> unit )
 

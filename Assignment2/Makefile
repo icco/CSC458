@@ -11,4 +11,4 @@ test: test.fs DeltaHedging.dll
 	mono ./test.exe
 
 clean:
-	rm -f deltahedging.exe test.exe DeltaHedging.exe DeltaHedging.dll
+	rm -f deltahedging.exe test.exe DeltaHedging.exe DeltaHedging.dll deltahedging.dll

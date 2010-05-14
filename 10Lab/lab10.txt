@@ -1,0 +1,12 @@
+1) Download historical data for the S&P 500 index (or use VFINX as a proxy).
+Choose a random 365-day period.  Graph the closing prices on these days, scaled
+by the initial closing price (so that every graph starts at 1.00).
+
+2) Generate Lognormal differentials with mean 0.00001 and standard deviation[*]
+0.005. Graph the corresponding stock chart.
+
+3) Do it again, with mean -0.00001 and the same standard deviation.  Graph
+the corresponding stock chart.
+
+Now, here's the experiment part.  See if your neighbor can figure out which
+one is the real chart.

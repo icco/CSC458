@@ -1,16 +1,16 @@
 
 type term = (double * double)
-type eqn = term list
+type poly = term list
 
 (**
  * Given an equation and a value, solve, return dbl.
  *)
-let solve ( eq : eqn ) ( v : double ) = 1.0
+let solve ( eq : poly ) ( v : double ) = 1.0
 
 (**
  * Given an equation, diffentiate and return eq'
  *)
-let dx ( eq : eqn ) =
+let dx ( eq : poly ) =
    let rec loop acc = function
       | [] -> acc
       | ((f, e)::t) -> if e > 0.0 then (loop (((f*e), (e - 1.0)) :: acc) t); else acc
@@ -25,12 +25,11 @@ let dx ( eq : eqn ) =
  * 
  * TODO: Figure out when to stop recursing...
  *)
-let rec nr (x : eqn) (y : double) =
-   (nr x (y - ((solve x y) / (solve (dx x) y))))
-
+let rec findZeros ((x : poly), (y : double)) =
+   (findZeros (x, (y - ((solve x y) / (solve (dx x) y)))))
 
 (* Tests... *)
-ignore ( solve : eqn -> double -> double ) 
-ignore ( dx : eqn -> eqn ) 
-ignore ( nr : eqn -> double -> double ) 
+ignore ( solve : poly -> double -> double )
+ignore ( dx : poly -> poly )
+ignore ( findZeros : poly * double -> double )
 

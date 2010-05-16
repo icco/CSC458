@@ -14,8 +14,8 @@ let solve ( eq : poly ) ( v : double ) =
 let dx ( eq : poly ) =
    let rec loop acc = function
       | [] -> acc
-      | ((f, e)::t) -> if e > 0.0 then (loop (((f*e), (e - 1.0)) :: acc) t); else acc
-   loop [] eq
+      | ((f, e)::t) -> if e > 0.0 then (loop (((f*e), (e - 1.0))::acc) t); else acc
+   List.rev (loop [] eq)
 
 (**
  * x is the equation we want to estimate
@@ -37,9 +37,14 @@ ignore ( findZeros : poly * double -> double )
 let test _ =
    printfn "--- Test solve: "
    printfn "equals 144 ? %.0f" (solve ((1.0,2.0)::[]) 12.0)
-   printfn "equals 12  ?  %.0f" (solve ((1.0,2.0)::(4.0,1.0)::[]) 2.0)
-   printfn "equals 62  ?  %.0f" (solve ((1.0,5.0)::(1.0,4.0)::(1.0,3.0)::(1.0,2.0)::(1.0,1.0)::[]) 2.0)
-   
+   printfn "equals 12  ? %.0f" (solve ((1.0,2.0)::(4.0,1.0)::[]) 2.0)
+   printfn "equals 62  ? %.0f" (solve ((1.0,5.0)::(1.0,4.0)::(1.0,3.0)::(1.0,2.0)::(1.0,1.0)::[]) 2.0)
+   printfn "--- Test dx: "
+   printfn "equals 2x? %A" (dx ((1.0, 2.0)::[]))
+   printfn "equals  1? %A" (dx ((1.0, 1.0)::[]))
+   printfn "equals  0? %A" (dx ((4.0, 0.0)::[]))
+   printfn "equals 3x2 + 2x + 4? %A" (dx ((1.0, 3.0)::(1.0, 2.0)::(4.0, 1.0)::[]))
+   printfn "--- Test findZeros: "
 
 
 test () ;;

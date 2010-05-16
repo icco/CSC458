@@ -5,7 +5,8 @@ type poly = term list
 (**
  * Given an equation and a value, solve, return dbl.
  *)
-let solve ( eq : poly ) ( v : double ) = 1.0
+let solve ( eq : poly ) ( v : double ) =
+   List.fold (fun acc (f,e) -> (acc + (f * (v ** e)))) 0.0 eq
 
 (**
  * Given an equation, diffentiate and return eq'
@@ -32,4 +33,9 @@ let rec findZeros ((x : poly), (y : double)) =
 ignore ( solve : poly -> double -> double )
 ignore ( dx : poly -> poly )
 ignore ( findZeros : poly * double -> double )
+
+let test _ =
+   printfn "test..."
+
+test () ;;
 

@@ -3,7 +3,7 @@ type term = (double * double)
 type poly = term list
 
 (**
- * Given an equation and a value, solve, return dbl.
+ * Given an equation and a value, solve, return a double.
  *)
 let solve ( eq : poly ) ( v : double ) =
    List.fold (fun acc (f,e) -> (acc + (f * (v ** e)))) 0.0 eq
@@ -35,7 +35,12 @@ ignore ( dx : poly -> poly )
 ignore ( findZeros : poly * double -> double )
 
 let test _ =
-   printfn "test..."
+   printfn "--- Test solve: "
+   printfn "equals 144 ? %.0f" (solve ((1.0,2.0)::[]) 12.0)
+   printfn "equals 12  ?  %.0f" (solve ((1.0,2.0)::(4.0,1.0)::[]) 2.0)
+   printfn "equals 62  ?  %.0f" (solve ((1.0,5.0)::(1.0,4.0)::(1.0,3.0)::(1.0,2.0)::(1.0,1.0)::[]) 2.0)
+   
+
 
 test () ;;
 

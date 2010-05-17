@@ -33,8 +33,13 @@ let dx ( eq : poly ) =
  * 
  * TODO: Figure out when to stop recursing...
  *)
+let rec findZeros_ ((x : poly), (y : double)) i =
+   if i = 0 then y
+   else
+      findZeros_ (x, (y - ((solve x y) / (solve (dx x) y)))) (i-1)
+
 let rec findZeros ((x : poly), (y : double)) =
-   findZeros (x, (y - ((solve x y) / (solve (dx x) y))))
+   findZeros_ (x, y) 1000
 
 (**
  * Take in a random variable and a probability for heads and return the

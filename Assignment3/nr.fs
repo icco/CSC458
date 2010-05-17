@@ -1,4 +1,11 @@
+(**
+ * Assignment 3
+ * @author Nathaniel "Nat" Welch
+ *)
 
+type event1 = bool
+type event = int -> event1
+type rv = event -> double // a random variable
 type term = (double * double)
 type poly = term list
 
@@ -27,12 +34,21 @@ let dx ( eq : poly ) =
  * TODO: Figure out when to stop recursing...
  *)
 let rec findZeros ((x : poly), (y : double)) =
-   (findZeros (x, (y - ((solve x y) / (solve (dx x) y)))))
+   findZeros (x, (y - ((solve x y) / (solve (dx x) y))))
+
+(**
+ * Take in a random variable and a probability for heads and return the
+ * expected value for that rv.
+ *)
+let expectedVal ( r : rv ) ( d : double ) =
+   1.0
 
 (* Tests... *)
 ignore ( solve : poly -> double -> double )
 ignore ( dx : poly -> poly )
 ignore ( findZeros : poly * double -> double )
+
+ignore ( expectedVal : rv -> double -> double )
 
 let test _ =
    printfn "--- Test solve: "

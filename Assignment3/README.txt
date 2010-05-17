@@ -10,9 +10,7 @@ Newton Raphson:
    for a findZeros method.
 
    type term = (double * double) // coefficient and exponent
-
    type poly = term list
-
    //val findZeros : poly * double -> double
 
    The findZeros function should find double values for which the polynomial

@@ -22,7 +22,7 @@ let dx ( eq : poly ) =
    let rec loop acc = function
       | [] -> acc
       | ((f, e)::t) -> if e > 0.0 then (loop (((f*e), (e - 1.0))::acc) t); else acc
-   List.rev (loop [] eq)
+   List.rev (loop [] eq) // Order the variables the way we got them
 
 (**
  * x is the equation we want to estimate
@@ -44,9 +44,16 @@ let rec findZeros ((x : poly), (y : double)) =
 (**
  * Take in a random variable and a probability for heads and return the
  * expected value for that rv.
+ * 
+ * Assumes a discrete random variable
  *)
+let rec _expectedVal i ( r : rv ) ( d : double ) =
+   if i = 1000 then 0.0
+   else
+      (d * (r i)) + (_expectedVal (i-1) (r) (d))
+
 let expectedVal ( r : rv ) ( d : double ) =
-   1.0
+   _expectedVal 100 r d
 
 (* Tests... *)
 ignore ( solve : poly -> double -> double )

@@ -1,6 +1,13 @@
 Nathaniel Welch
+Jesse Tyler
 Assignment 3
 CSC458 Spring 2010
+
+Our program is fully functional and well commented. To run tests uncomment the
+last line of nr.fs.
+
+
+
 
 Spec from Clements:
 

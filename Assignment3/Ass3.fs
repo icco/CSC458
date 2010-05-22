@@ -27,7 +27,7 @@ let solve ( eq : poly ) ( v : double ) =
    List.fold (fun acc (f,e) -> (acc + (f * (v ** e)))) 0.0 eq
 
 (**
- * Given an equation, diffentiate and return eq'
+ * Given an equation, differentiate and return eq'
  *)
 let dx ( eq : poly ) =
    let rec loop acc = function
@@ -65,7 +65,7 @@ let rec findZeros ((x : poly), (y : double)) =
 (**--------- Part 2------------------*)
 
 (**
-* baisc event, forces the model to go to the left
+* basic event, forces the model to go to the left
 *)
 let eAllTails (ts:int) = 
     false
@@ -78,8 +78,10 @@ let fakeEvent (b:bool) =
         
 (**
 * trackEvent: event-> int -> event
-* helper function to create an event where you can track what timestep you are on
-* takes an event, updates the refrence to the last timestep that the event was called.
+* helper function to create an event where you can track what timestep you are
+* on takes an event, updates the reference to the last timestep that the event
+* was called.
+*
 * returns the event that it was given  
 * a 'Trojan' event
 *)
@@ -101,9 +103,10 @@ let getChange (ev:event) (ts:int) (probH:float) =
 
 (**
 * partialEV: event -> float -> int -> float
-* takes in a given event, the probability of a head happening, the current timestep
-* evaulates the event at the given timestep and produces the expected value 
-* of getting that value at that timestep
+*
+* takes in a given event, the probability of a head happening, the current
+* timestep evaluates the event at the given timestep and produces the expected
+* value of getting that value at that timestep
 *)
 let rec partialEV  (ev:event) (probH:float) (ts:int) = 
     let change = getChange ev ts probH
@@ -114,6 +117,7 @@ let rec partialEV  (ev:event) (probH:float) (ts:int) =
 
 (**
 * forceEvent: event -> int -> bool
+*
 * helper function that consumes an event and a timestep and returns a bool
 * used to change the outcome of an event at a desired timestep. 
 *)
@@ -129,9 +133,10 @@ let forceEvent (ev:event) (ts:int) =
 (**
 * expectedVal: rv-> float -> float
 *
-* tree traversal most likely not  working correctly
-* dont know how to test this thing
-* so very confused on how this thing actually works
+* tree traversal 
+*
+* Note: This has a few bugs... I don't know how to test this thing. So very
+* confused on how this thing actually works
 *)
 let expectedVal (randv: rv) (probH:float) =
     let lastTS = ref(-1)

@@ -1,8 +1,8 @@
-all: nr
+all: Ass3
 
 FSC = /home/${USER}/lib/fsharp/bin/fsc.exe
 
-nr: nr.fs
+Ass3: Ass3.fs
 	mono ${FSC} --resident $<
 	mono $@.exe
 

@@ -1,7 +1,7 @@
 (*
  * Assignment 3
  * @author Nathaniel "Nat" Welch
- * Jesse Tyler
+ * @author Jesse Tyler
  *)
 
 module Ass3
@@ -183,8 +183,6 @@ let test _ =
       with
          | exn ->
             printf " yes."
-            //printf "Exception message: %s" exn.Message
-
 
 let test2 _ =
     let rts = ref -1

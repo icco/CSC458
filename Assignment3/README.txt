@@ -3,10 +3,11 @@ Jesse Tyler
 Assignment 3
 CSC458 Spring 2010
 
-Our program is fully functional and well commented. To run tests uncomment the
+Our first half of out program is fully functional and well commented. To run tests uncomment the
 last line of nr.fs.
 
-
+The second half is well documented, but might not work to the full spec requirements. This was
+the result of confusion on my part -Jesse
 
 
 Spec from Clements:

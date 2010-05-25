@@ -4,28 +4,13 @@ require 'rubygems'
 require 'google_chart' # sudo gem install gchart
 
 class Array
-   def sum
-      inject( nil ) { |sum,x|
-         sum ? sum+x : x
-      }
-   end
-
    def mean
-      (sum / size)
+      inject(:+) / size.to_f
    end
 
    def std_dev
-      n = 0
-      mean = 0.0
-      s = 0.0
-      each { |x|
-         n = n + 1
-         delta = x - mean
-         mean = mean + (delta / n)
-         s = s + delta * (x - mean)
-      }
-
-      Math.sqrt(s/n)
+      m = mean; c = size
+      Math.sqrt( inject(0) { |sum, e| sum + (e - m) ** 2 } / c.to_f )
    end
 end
 
@@ -51,13 +36,11 @@ stocks.map! { |stock|
    # take log of each, calculate std dev and mean
    diffs.map! { |val| if val.zero? then 0.0 else val = Math.log10 val.abs end }
 
-   #stock = [ stock, diffs.std_dev, diffs.mean ]
+   puts "#{stock}, #{diffs.std_dev}, #{diffs.mean}"
    stock = [ diffs.std_dev, diffs.mean ]
 }
 
 # graph. risk vs return
-stocks.each { |s| p s }
-
 puts "\nChart Url"
 sc = GoogleChart::ScatterChart.new('400x400',"Risk vs Return")
 sc.data "Scatter Set", stocks

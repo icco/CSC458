@@ -1,27 +1,33 @@
 #!/usr/bin/ruby
 
-# STD Dev 
-# from http://warrenseen.com/blog/2006/03/13/how-to-calculate-standard-deviation/
+require 'rubygems'
+require 'google_chart' # sudo gem install gchart
 
-def variance(population)
-   n = 0
-   mean = 0.0
-   s = 0.0
-   population.each { |x|
-      n = n + 1
-      delta = x - mean
-      mean = mean + (delta / n)
-      s = s + delta * (x - mean)
-   }
+class Array
+   def sum
+      inject( nil ) { |sum,x|
+         sum ? sum+x : x
+      }
+   end
 
-   return s / n
+   def mean
+      (sum / size)
+   end
+
+   def std_dev
+      n = 0
+      mean = 0.0
+      s = 0.0
+      each { |x|
+         n = n + 1
+         delta = x - mean
+         mean = mean + (delta / n)
+         s = s + delta * (x - mean)
+      }
+
+      Math.sqrt(s/n)
+   end
 end
-
-def std_dev(population)
-   Math.sqrt(variance(population))
-end
-
-class Array; def sum; inject( nil ) { |sum,x| sum ? sum+x : x }; end; end
 
 # open each stock in stocks.txt
 f = File.new "stocks.txt"
@@ -45,9 +51,15 @@ stocks.map! { |stock|
    # take log of each, calculate std dev and mean
    diffs.map! { |val| if val.zero? then 0.0 else val = Math.log10 val.abs end }
 
-   stock = [ stock, (std_dev diffs), (diffs.sum / diffs.length) ]
+   #stock = [ stock, diffs.std_dev, diffs.mean ]
+   stock = [ diffs.std_dev, diffs.mean ]
 }
 
 # graph. risk vs return
-p stocks
+stocks.each { |s| p s }
+
+puts "\nChart Url"
+sc = GoogleChart::ScatterChart.new('400x400',"Risk vs Return")
+sc.data "Scatter Set", stocks
+puts sc.to_url
 

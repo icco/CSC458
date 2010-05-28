@@ -1,14 +1,17 @@
 #!/usr/bin/ruby
 
+# uncomment these and some lines below to enable google char
+# google chart doesn't seem to handle the small differences this program
+# outputs
 #require 'rubygems'
 #require 'google_chart' # sudo gem install gchart
 
 class Array
-   def return # Average Return
+   def return # Gemetric Average
       (inject(:*) ** (1.0/(size-1.0)))
    end
 
-   def mean # Aritmetic
+   def mean # Arithmetic mean
       inject(:+) / size.to_f
    end
 
@@ -41,6 +44,7 @@ stocks.map! { |stock|
    # take log of each, calculate std dev and mean
    #diffs.map! { |val| if val.zero? then 0.0 else val = Math.log10 val.abs end }
 
+   #output results as a csv to stdout
    puts "#{stock}, #{diffs.std_dev}, #{diffs.return}"
    stock = [ diffs.std_dev, diffs.return]
 }

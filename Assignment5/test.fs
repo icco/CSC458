@@ -1,5 +1,5 @@
 
-open EquityModel
+open Final
 
 ignore ( generateData : unit -> double array)
 ignore ( evaluateData : double array -> bool)

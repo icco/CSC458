@@ -2,9 +2,10 @@
  * Final Assignment
  * 
  * @author Nathaniel "Nat" Welch
+ * @author Mark Gius
  *)
 
-module EquityModel
+module Final
 
 let r = System.Random()
 let roll _ = double (r.Next(-2, 4))

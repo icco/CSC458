@@ -1,5 +1,5 @@
 all: Final.dll
-FSC = /home/${USER}/lib/fsharp/bin/fsc.exe
+FSC = /home/${USER}/fsharp/bin/fsc.exe
 #OPTIONS= --resident
 
 Final.dll: Final.fs

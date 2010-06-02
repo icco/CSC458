@@ -12,13 +12,12 @@ let roll _ = double (r.Next(-2, 4))
 
 let scale ( x : double ) = x + ((roll()) * r.NextDouble())
 
-let rec genList x =
-   if x = 0 then (100.0::[])
+let rec genList acc x =
+   if x = 0 then acc 
    else
-      let y = genList (x-1)
-      (scale (List.head y))::y
+      genList ((scale (List.head acc))::acc) (x - 1)
 
-let generateData _ =  Array.ofList ( List.rev ( genList 1000 ) )
+let generateData _ =  Array.ofList ( List.rev ( genList [100.0] 1000 ) )
 
 let rec evaluateList = function
    | [] -> true // Hey why not?

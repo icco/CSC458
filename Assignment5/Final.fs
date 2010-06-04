@@ -31,6 +31,25 @@ let stddev (data : double list) =
    let sum = (List.fold (fun acc x -> acc + (mean - x) ** 2.0)) 0.0 data
    sqrt (sum / (double (List.length data)))
 
+let differences (data : double list) =
+   let listEnd = List.tail data
+   List.map2 (fun x y -> x / y) listEnd data
+   
+
+(* This test uses precalculated data based on the stocks specified in
+   lab13 plus a few others.  The average return and std dev of returns are
+   calculated, and then the std dev and mean of the returns and std devs are 
+   taken.  If a set of data has similar std dev and mean, it's probably a stock
+ *)
+//let stddevmeantest data =
+//   let listData = List.ofArray data
+//   let realMeanOfMeans = 0.99994492132
+//   let realStdDevOfMeans = 0.00056242307
+//   let realMeanofStdDevs = 0.02580240517
+//   let realStdDevofStdDevs = 0.00998161951
+//   let dataStdDev = stddev data
+//   let dataReturn = geometricMean data
+
 let rec evaluateList d = 
    let r = []::(tooMuchGrowth d)
    let count = List.fold (fun acc x -> if x then acc + 1; else acc - 1) 0 r

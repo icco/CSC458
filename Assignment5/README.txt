@@ -1,13 +1,17 @@
 Assignment 5 (final project) 
 CSC458, Spring 2010
+Mark Gius
+Nathaniel "Nat" Welch
+
+Should all work 100%.
 
 
-1 Assignment
+Assignment:
 This assignment 5's goal is easy: outwit the greatest financial minds in
 history to write a program that can distinguish real stock market data from
 modeled stock market data.  In case it's not already obvious, doing this well
 amounts to discovering better models of the stock market's behavior, something
-that&ndash;at least in principle&ndash;would allow you to devise new strategies
+that at, least in principle, would allow you to devise new strategies
 and Beat The Market.  For now, though, the only thing I'm hoping you can do is
 to beat your classmates.  In particular, you need to develop two functions:
 generateData and evaluateData. The first should generate data that is

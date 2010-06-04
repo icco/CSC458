@@ -37,7 +37,7 @@ stocks.map! { |stock|
 
    # calculate differences between days
    diffs = []
-   for i in 1..(values.length-1) do
+   for i in 1..(1000) do
       diffs[i-1] = values[i] / values[i-1]
    end
 

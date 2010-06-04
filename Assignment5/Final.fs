@@ -37,19 +37,24 @@ let differences (data : double list) =
    let listBegin = List.rev (List.tail (List.rev data))
    List.map2 (fun x y -> x / y) listEnd listBegin
 
+let equalWithTolerance tolerance a b =
+   (b - a) < tolerance
+
 (* This test uses precalculated data based on the stocks specified in
    lab13 plus a few others.  The average return and std dev of returns are
    calculated, and then the std dev and mean of the returns and std devs are 
    taken.  If a set of data has similar std dev and mean, it's probably a stock
  *)
-//let stddevmeantest data =
-//   let listData = List.ofArray data
-//   let realMeanOfMeans = 0.99994492132
-//   let realStdDevOfMeans = 0.00056242307
-//   let realMeanofStdDevs = 0.02580240517
-//   let realStdDevofStdDevs = 0.00998161951
-//   let dataStdDev = stddev data
-//   let dataReturn = geometricMean data
+let stddevmeantest data =
+   let dataDifferences = differences (List.ofArray data)
+   let returnsMean = 0.99994492132
+   let returnsStdDev = 0.00056242307
+   let stdDevsMean = 0.02580240517
+   let stdDevsStdDev = 0.00998161951
+   let dataStdDev = stddev dataDifferences
+   let dataReturn = geometricMean dataDifferences
+   (equalWithTolerance (returnsStdDev * 2.0) returnsMean dataReturn) &&
+      (equalWithTolerance (stdDevsStdDev * 2.0) stdDevsMean dataStdDev)
 
 let rec evaluateList d = 
    let r = ( tooMuchGrowth d )::[]

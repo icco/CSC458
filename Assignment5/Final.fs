@@ -24,7 +24,7 @@ let geometricMean (data : double list) =
       (1.0 / (double (List.length data) - 1.0))
 
 let tooMuchGrowth data = 
-   ( (data.[999] / data.[0]) > 4 )
+   ( (data.[999] / data.[0]) > 7 )
 
 let stddev (data : double list) =
    let mean = List.average data

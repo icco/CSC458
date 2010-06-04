@@ -42,7 +42,7 @@ let geometricMean (data : double list) =
       (1.0 / (double (List.length data) - 1.0))
 
 (** 
- * I have trouble beleiving stocks can grow more than one order of magnitude in
+ * I have trouble believing stocks can grow more than one order of magnitude in
  * three years.
  *)
 let tooMuchGrowth ( data : double list ) = 

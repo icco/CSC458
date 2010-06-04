@@ -23,6 +23,11 @@ let geometricMean (data : double list) =
    (List.fold (fun acc x -> acc * x) 1.0 data) ** 
       (1.0 / (double (List.length data) - 1.0))
 
+let stddev (data : double list) =
+   let mean = List.average data
+   let sum = (List.fold (fun acc x -> acc + (mean - x) ** 2.0)) 0.0 data
+   sqrt (sum / (double (List.length data)))
+
 //let stddevmeantest data =
 //   let dataList = List.ofArray data
 

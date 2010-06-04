@@ -33,8 +33,9 @@ let stddev ( data : double list ) =
 
 let differences (data : double list) =
    let listEnd = List.tail data
-   List.map2 (fun x y -> x / y) listEnd data
-   
+   (* The following line of code should be punishable by death *)
+   let listBegin = List.rev (List.tail (List.rev data))
+   List.map2 (fun x y -> x / y) listEnd listBegin
 
 (* This test uses precalculated data based on the stocks specified in
    lab13 plus a few others.  The average return and std dev of returns are

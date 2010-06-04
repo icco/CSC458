@@ -79,6 +79,11 @@ let stddevmeantest data =
 
 (**
  * the real work for the below function.
+ *
+ * This function is cool because as we write more tests against your "fake"
+ * data, we can just tack them onto the list, and as long as you pass 50% or
+ * more of the tests then we assume you aren't a dirty liar. Of course, we
+ * still have to come up with those tests...
  *)
 let rec evaluateList d = 
    let tests = ( tooMuchGrowth d )::( stddevmeantest d )::[]

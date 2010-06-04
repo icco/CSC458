@@ -38,7 +38,7 @@ let differences (data : double list) =
    List.map2 (fun x y -> x / y) listEnd listBegin
 
 let equalWithTolerance tolerance a b =
-   (b - a) < tolerance
+   abs (b - a) < tolerance
 
 (* This test uses precalculated data based on the stocks specified in
    lab13 plus a few others.  The average return and std dev of returns are

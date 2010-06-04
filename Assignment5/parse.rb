@@ -45,13 +45,17 @@ stocks.map! { |stock|
    #diffs.map! { |val| if val.zero? then 0.0 else val = Math.log10 val.abs end }
 
    #output results as a csv to stdout
-   puts "#{stock}, #{diffs.std_dev}, #{diffs.return}"
-   stock = [ diffs.std_dev, diffs.return]
+   #puts "#{stock}, #{diffs.std_dev}, #{diffs.return}"
+   stock = [ diffs.std_dev, diffs.return ]
 }
 
-# graph. risk vs return
-#puts "\nChart Url"
-#sc = GoogleChart::ScatterChart.new('400x400',"Risk vs Return")
-#sc.data "Scatter Set", stocks
-#puts sc.to_url
+devs = []
+rets = []
+
+stocks.each { |stock|
+   devs.push stock[0]
+   rets.push stock[1]
+}
+
+puts "total std_dev of std_dev: #{devs.std_dev}, mean of returns: #{rets.mean}"
 

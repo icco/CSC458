@@ -33,7 +33,7 @@ let stddev (data : double list) =
 
 let rec evaluateList d = 
    let r = []::(tooMuchGrowth d)
-   let count = List.fold (fun acc x -> if x then acc + 1; else acc - 1) 0 r
+   let count = List.fold (fun acc x -> if x then acc + 1; else acc) 0 r
    count > ((List.length r) / 2)
 
 let evaluateData x = evaluateList ( List.ofArray x )

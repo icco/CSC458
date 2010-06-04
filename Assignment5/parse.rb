@@ -45,7 +45,7 @@ stocks.map! { |stock|
    #diffs.map! { |val| if val.zero? then 0.0 else val = Math.log10 val.abs end }
 
    #output results as a csv to stdout
-   #puts "#{stock}, #{diffs.std_dev}, #{diffs.return}"
+   puts "#{stock}, #{diffs.std_dev}, #{diffs.return}"
    stock = [ diffs.std_dev, diffs.return ]
 }
 
@@ -57,5 +57,6 @@ stocks.each { |stock|
    rets.push stock[1]
 }
 
-puts "total std_dev of std_dev: #{devs.std_dev}, mean of returns: #{rets.mean}"
+puts "std_dev of std_dev: #{devs.std_dev}, mean of returns: #{rets.mean}"
+puts "mean of std_dev: #{devs.mean}, std_dev of returns: #{rets.std_dev}"
 

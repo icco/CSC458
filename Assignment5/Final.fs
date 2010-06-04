@@ -19,6 +19,10 @@ let rec genList acc x =
 
 let generateData _ =  Array.ofList ( List.rev ( genList [100.0] 1000 ) )
 
+let geometricMean (data : double list) = 
+   (List.fold (fun acc x -> acc * x) 1.0 data) ** 
+      (1.0 / (double (List.length data) - 1.0))
+
 let tooMuchGrowth data = 
    ( (data.[999] / data.[0]) > 4 )
 

@@ -43,27 +43,31 @@ let geometricMean (data : double list) =
 let tooMuchGrowth ( data : double list ) = 
    ( (data.[999] / data.[0]) < 10.0 )
 
+(** Standard Deviation Calc. *)
 let stddev ( data : double list ) =
    let mean = List.average data
    let sum = (List.fold (fun acc x -> acc + (mean - x) ** 2.0)) 0.0 data
    sqrt (sum / (double (List.length data)))
 
+(** Given an array of stocks, returns an array of their daily diffs. *)
 let differences (data : double list) =
    let listEnd = List.tail data
    (* The following line of code should be punishable by death *)
    let listBegin = List.rev (List.tail (List.rev data))
    List.map2 (fun x y -> x / y) listEnd listBegin
 
+(** compare with a boundary. *)
 let equalWithTolerance tolerance a b =
    (b - a) < tolerance
 
-(* This test uses precalculated data based on the stocks specified in
-   lab13 plus a few others.  The average return and std dev of returns are
-   calculated, and then the std dev and mean of the returns and std devs are 
-   taken.  If a set of data has similar std dev and mean, it's probably a stock
+(**
+ * This test uses precalculated data based on the stocks specified in lab13
+ * plus a few others. The average return and std dev of returns are calculated,
+ * and then the std dev and mean of the returns and std devs are taken. If a
+ * set of data has similar std dev and mean, it's probably a stock
  *)
 let stddevmeantest data =
-   let dataDifferences = differences (List.ofArray data)
+   let dataDifferences = differences data
    let returnsMean = 0.99994492132
    let returnsStdDev = 0.00056242307
    let stdDevsMean = 0.02580240517
@@ -73,10 +77,16 @@ let stddevmeantest data =
    (equalWithTolerance (returnsStdDev * 2.0) returnsMean dataReturn) &&
       (equalWithTolerance (stdDevsStdDev * 2.0) stdDevsMean dataStdDev)
 
+(**
+ * the real work for the below function.
+ *)
 let rec evaluateList d = 
-   let tests = ( tooMuchGrowth d )::[]
+   let tests = ( tooMuchGrowth d )::( stddevmeantest d )::[]
    let count = List.fold (fun acc x -> if x then acc + 1; else acc) 0 tests
    count > ((List.length tests) / 2)
 
+(**
+ * Do we think your data is a real stock? true if yes, false if no...
+ *)
 let evaluateData x = evaluateList ( List.ofArray x )
 

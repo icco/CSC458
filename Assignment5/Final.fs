@@ -26,6 +26,11 @@ let geometricMean (data : double list) =
 let tooMuchGrowth data = 
    ( (data.[999] / data.[0]) > 4 )
 
+let stddev (data : double list) =
+   let mean = List.average data
+   let sum = (List.fold (fun acc x -> acc + (mean - x) ** 2.0)) 0.0 data
+   sqrt (sum / (double (List.length data)))
+
 let rec evaluateList d = 
    let r = []::(tooMuchGrowth d)
    let count = List.fold (fun acc x -> if x then acc + 1; else acc - 1) 0 r

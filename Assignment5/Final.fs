@@ -23,10 +23,10 @@ let geometricMean (data : double list) =
    (List.fold (fun acc x -> acc * x) 1.0 data) ** 
       (1.0 / (double (List.length data) - 1.0))
 
-let tooMuchGrowth data = 
-   ( (data.[999] / data.[0]) > 7 )
+let tooMuchGrowth ( data : double list ) = 
+   ( (data.[999] / data.[0]) > 7.0 )
 
-let stddev (data : double list) =
+let stddev ( data : double list ) =
    let mean = List.average data
    let sum = (List.fold (fun acc x -> acc + (mean - x) ** 2.0)) 0.0 data
    sqrt (sum / (double (List.length data)))
@@ -51,7 +51,7 @@ let differences (data : double list) =
 //   let dataReturn = geometricMean data
 
 let rec evaluateList d = 
-   let r = []::(tooMuchGrowth d)
+   let r = ( tooMuchGrowth d )::[]
    let count = List.fold (fun acc x -> if x then acc + 1; else acc) 0 r
    count > ((List.length r) / 2)
 

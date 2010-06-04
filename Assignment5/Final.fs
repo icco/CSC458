@@ -26,7 +26,12 @@ let rec genList acc x =
       genList ((scale (List.head acc))::acc) (x - 1)
 
 (** return our data, and seriously, who uses Arrays? Bah. *)
-let generateData _ =  Array.ofList ( List.rev ( genList [100.0] 1000 ) )
+let generateData _ =  
+   let badData = List.rev ( genList [100.0] 1000 )
+   (* Massage the data to have the same number of significant digits as 
+      Yahoo's data *)
+   Array.ofList (List.map (fun x -> (System.Math.Floor (x * 100.0)) / 100.0) 
+                          badData)
 
 (**
  * geometric mean, pretty straight forward. see wikipedia article if this

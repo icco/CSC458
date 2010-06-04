@@ -42,7 +42,7 @@ let geometricMean (data : double list) =
       (1.0 / (double (List.length data) - 1.0))
 
 (** 
- * I have trouble beleiving stocks can grow more than one order of magnitude in
+ * I have trouble believing stocks can grow more than one order of magnitude in
  * three years.
  *)
 let tooMuchGrowth ( data : double list ) = 
@@ -66,7 +66,7 @@ let equalWithTolerance tolerance a b =
    abs (b - a) < tolerance
 
 (**
- * This test uses precalculated data based on the stocks specified in lab13
+ * This test uses pre-calculated data based on the stocks specified in lab13
  * plus a few others. The average return and std dev of returns are calculated,
  * and then the std dev and mean of the returns and std devs are taken. If a
  * set of data has similar std dev and mean, it's probably a stock

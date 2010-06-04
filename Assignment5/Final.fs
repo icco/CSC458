@@ -58,7 +58,7 @@ let differences (data : double list) =
 
 (** compare with a boundary. *)
 let equalWithTolerance tolerance a b =
-   (b - a) < tolerance
+   abs (b - a) < tolerance
 
 (**
  * This test uses precalculated data based on the stocks specified in lab13
